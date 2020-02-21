@@ -4,11 +4,13 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js",
+    "server": "nodemon server.js"
   },
   "author": "Gabor Szabo",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "react-router-dom": "^5.1.2"
   }
 }

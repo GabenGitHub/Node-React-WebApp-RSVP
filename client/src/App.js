@@ -1,26 +1,45 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// import './App.css'
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import Navbar from './components/navbar/navbar.component';
+import Home from './components/home/home.component';
+import Admin from './components/admin/admin.component';
+import Footer from './components/footer/footer.component';
+
+class App extends React.Component {
+    state = {
+        participants: []
+    };
+
+    async componentDidMount() {
+        try {
+            const respond = await fetch('/api/participants');
+            const resJson = await respond.json();
+            this.setState({ participants: resJson });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    render() {
+        return (
+            <div className='grid-container'>
+                <BrowserRouter>
+                        <Navbar />
+                        <Switch>
+                            <Route exact path='/'>
+                                <Home participants={this.state.participants} />
+                            </Route>
+                            <Route path='/admin'>
+                                <Admin participants={this.state.participants} />
+                            </Route>
+                        </Switch>
+                        <Footer />
+                </BrowserRouter>
+            </div>
+        );
+    };
+};
 
 export default App;

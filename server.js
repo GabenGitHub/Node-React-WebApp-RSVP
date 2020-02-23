@@ -1,13 +1,13 @@
 const express = require('express');
 const app = express();
-// const testData = require('./data');
+const testData = require('./data');
 
-let testData = [
-    { id: 1, name: 'Geza', age: 32 },
-    { id: 2, name: 'Bela', age: 12 },
-    { id: 3, name: 'Miklos', age: 34 },
-    { id: 4, name: 'Tibor', age: 65 }
-];
+// let testData = [
+//     { "id": 1, "name": "Geza", "participate": false },
+//     { "id": 2, "name": "Bela", "participate": false },
+//     { "id": 3, "name": "Miklos", "participate": false },
+//     { "id": 4, "name": "Tibor", "participate": false }
+// ];
 
 app.get('/api/participants', (req, res) => {
     res.json(testData);

@@ -1,16 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import './navbar.styles.css';
 
 const Navbar = () => (
-    <header className='navbar'>
-        <nav className="nav-wrapper #007261 teal darken-3">
-            <div className="container">
-                <Link to='/' className='brand-logo'>Logo</Link>
-                <ul id="nav-mobile" className="right">
-                    <li className='hide-on-small-and-down'><Link to='/'>Home</Link></li>
-                    <li><Link to='/admin'>Admin</Link></li>
-                </ul>
-            </div>
+    <header className='navbar header'>
+        <nav className='navbar-container'>
+            <Link to='/' className='brand-logo'>Welcome</Link>
+            <ul className="menu">
+                <li className='menu-item'><Link to='/'>Home</Link></li>
+                <li className='menu-item'><Link to='/admin'>Admin</Link></li>
+            </ul>
         </nav>
     </header>
 );

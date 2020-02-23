@@ -1,15 +1,14 @@
 import React from 'react';
-import './admin.styles.css';
+// import './admin.styles.css';
 
 import Participants from '../participants/participants.component';
 
-// const { participants } = this.props;
 
 class Admin extends React.Component {
     render() {
         return (
-            <div className="container main">
-                <h1>Admin page</h1>
+            <div className="main">
+                <h5 className='about'>Here you can manage the participants</h5>
                 <Participants participants={this.props.participants}/>
             </div>
         )

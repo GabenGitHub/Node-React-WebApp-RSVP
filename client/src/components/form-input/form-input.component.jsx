@@ -7,6 +7,7 @@ class FormInput extends React.Component {
         participate: '',
         plusOne: false,
         plusOneName: '',
+        isOnTheList: ''
     };
 
     checkName = async (event) => {
@@ -21,22 +22,25 @@ class FormInput extends React.Component {
                 // "participate": this.state.participate,
                 // "plusOne": this.state.plusOne,
                 // "plusOneName": this.state.plusOneName,
-                // "isInvited": this.state.isInvited
             })
         });
-        if (response.ok) {
-            console.log(response.body);
-            this.setState({ isInvited: 'yes' })
+        if (await response.ok) {
+            this.setState({ isOnTheList: 'yes' })
+            const foundGuest = await response.json()
+            console.log(foundGuest);
+            const {name, participate, plusOne, plusOneName} = foundGuest;
+            this.setState({ name, participate, plusOne, plusOneName});
+            console.log(`Current state: ${this.state.name}`)
         } else {
-            this.setState({ isInvited: 'no' })
-            console.log(response.text())
+            this.setState({ isOnTheList: 'no' })
+            console.log(await response.text())
         }
     }
 
     handleSubmit = async (event) => {
         event.preventDefault();
         console.log(event)
-        if(this.state.isInvited === 'yes') {
+        if(this.state.isOnTheList === 'yes') {
             this.props.addGuest(this.state);
             this.setState({ 
                 id: Math.floor(Math.random() * 10000), 
@@ -44,7 +48,7 @@ class FormInput extends React.Component {
                 participate: '',
                 plusOne: false,
                 plusOneName: '',
-                isInvited: false
+                isOnTheList: false
             });
         }
     };
@@ -61,61 +65,52 @@ class FormInput extends React.Component {
         return(
             <div className="form">
                 <form onSubmit={this.handleSubmit}>
-                    <label>Your name: </label>
-                    <input 
-                        type="text" 
-                        name='name' 
-                        placeholder='type your name'
-                        onChange={this.checkName} 
-                        value={this.state.name}
-                        required/>
-                    {
-                        this.state.isInvited === 'yes' &&
-                        <div>
-                            <label>Are you participate? </label>
-                            <select 
-                                name='participate' 
-                                onChange={this.handleChange} 
-                                value={this.state.participate}
-                                required
-                            >
-                                <option disabled hidden value=''> -- select an option -- </option>
-                                <option value='yes'>Coming</option>
-                                <option value='no'>Not coming</option>
-                            </select>
-                        </div>
-                    }
-                    {
-                        this.state.participate === 'yes' &&
-                        <div>
-                            <input 
-                            type='checkbox'
-                            name='plusOne'
+                    <div>
+                        <label>Your name: </label>
+                        <input 
+                            type="text" 
+                            name='name' 
+                            placeholder='type your name'
+                            onChange={this.checkName} 
+                            value={this.state.name}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label>Are you participate? </label>
+                        <select 
+                            name='participate' 
+                            onChange={this.handleChange} 
+                            value={this.state.participate}
+                            required
+                        >
+                            <option disabled hidden value=''> -- select an option -- </option>
+                            <option value='yes'>Coming</option>
+                            <option value='no'>Not coming</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input 
+                        type='checkbox'
+                        name='plusOne'
+                        onChange={this.handleChange}
+                        checked={this.state.plusOne}
+                        />
+                        <label> +1 guest</label>
+                    </div>
+                    <div>
+                        <input
+                            type='text'
+                            name='plusOneName'
+                            placeholder='name of +1'
                             onChange={this.handleChange}
-                            checked={this.state.plusOne}
-                            />
-                            <label> +1 guest</label>
-                        </div>
-                    }
-                    {
-                        this.state.plusOne && 
-                        <div>
-                            <input
-                                type='text'
-                                name='plusOneName'
-                                placeholder='name of +1'
-                                onChange={this.handleChange}
-                                value={this.state.plusOneName}
-                                required
-                            />
-                        </div>
-                    }
-                    {
-                        this.state.isInvited === 'yes' &&
-                        <div>
-                            <button>Submit</button>
-                        </div>
-                    }
+                            value={this.state.plusOneName}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <button>Submit</button>
+                    </div>
                 </form>
             </div>
         )

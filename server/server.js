@@ -39,7 +39,7 @@ app.post('/api/addGuest', jsonParser, async (req, res) => {
                 if (guest["name"].toLowerCase() === guestName.toLowerCase()) {
                     console.log(guest);
                     found = true;
-                    res.status(200).send({ guest }).end();
+                    res.status(200).send(guest).end();
                 }
             } catch (error) {
                 console.log(error);

@@ -30,19 +30,38 @@ a {
   margin: 0 10px;
   grid-area: main;
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 4fr 2fr;
+  grid-template-rows: 1fr 2fr;
   gap: 10px;
   grid-template-areas:
-  'about participants'
+  'about guests'
+  'form guests'
 }
+
+.admin {
+  margin: 0 10px;
+  grid-area: main;
+  display: grid;
+  grid-template-columns: 4fr 2fr;
+  grid-template-rows: 1fr;
+  gap: 10px;
+  grid-template-areas:
+  'about guests'
+}
+
 .about {
   padding: 2rem;
   border: 1px solid grey;
 }
-.participants {
+.form {
+  grid-area: form;
   border: 1px solid grey;
   padding: 2rem;
-  grid-area: participants;
+}
+.guests {
+  border: 1px solid grey;
+  padding: 2rem;
+  grid-area: guests;
 }
 
 /* Footer */

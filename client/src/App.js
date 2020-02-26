@@ -9,17 +9,22 @@ import Footer from './components/footer/footer.component';
 
 class App extends React.Component {
     state = {
-        participants: []
+        guests: []
     };
 
     async componentDidMount() {
         try {
-            const respond = await fetch('/api/participants');
+            const respond = await fetch('/api/listGuests');
             const resJson = await respond.json();
-            this.setState({ participants: resJson });
+            this.setState({ guests: resJson });
         } catch (error) {
             console.log(error);
         }
+    };
+
+    addGuest = (guest) => {
+        const guests = [...this.state.guests, guest];
+        this.setState({ guests })
     };
 
     render() {
@@ -29,10 +34,10 @@ class App extends React.Component {
                         <Navbar />
                         <Switch>
                             <Route exact path='/'>
-                                <Home participants={this.state.participants} />
+                                <Home guests={this.state.guests} addGuest={this.addGuest} />
                             </Route>
                             <Route path='/admin'>
-                                <Admin participants={this.state.participants} />
+                                <Admin guests={this.state.guests}  />
                             </Route>
                         </Switch>
                         <Footer />

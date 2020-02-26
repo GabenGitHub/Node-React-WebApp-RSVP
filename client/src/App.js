@@ -9,7 +9,12 @@ import Footer from './components/footer/footer.component';
 
 class App extends React.Component {
     state = {
-        guests: []
+        guests: [],
+        _id: '',
+        name: '',
+        participate: '',
+        plusOne: false,
+        plusOneName: '',
     };
 
     async componentDidMount() {
@@ -22,9 +27,63 @@ class App extends React.Component {
         }
     };
 
-    addGuest = (guest) => {
-        const guests = [...this.state.guests, guest];
-        this.setState({ guests })
+    checkName = async (event) => {
+        const { name, value } = event.target;
+        this.setState({ [name]: value });
+        const respond = await fetch('/api/checkGuests', {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                "name": event.target.value,
+            })
+        });
+        if (await respond.ok) {
+            const foundGuest = await respond.json()
+            console.log(foundGuest);
+            const { _id, name, participate, plusOne, plusOneName } = foundGuest;
+            this.setState({ _id, name, participate, plusOne, plusOneName });
+        } else {
+            console.log(await respond.text())
+        }
+    }
+
+    handleSubmit = async (event) => {
+        try {
+            event.preventDefault();
+            const respond = await fetch('/api/editGuest', {
+                method: 'put',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    "_id": this.state._id,
+                    "name": this.state.name,
+                    "participate": this.state.participate,
+                    "plusOne": this.state.plusOne,
+                    "plusOneName": this.state.plusOneName,
+                })
+            });
+            if (await respond.ok) {
+            const resJson = await respond.json();
+            this.setState({ 
+                guests: resJson,
+                _id: '',
+                name: '',
+                participate: '',
+                plusOne: false,
+                plusOneName: '',
+            });
+            } else {
+                console.log(await respond.text())
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    handleChange = (event) => {
+        const { name, value, type, checked } = event.target;
+        type === 'checkbox'
+            ? this.setState({ [name]: checked })
+            : this.setState({ [name]: value });
     };
 
     render() {
@@ -34,10 +93,15 @@ class App extends React.Component {
                         <Navbar />
                         <Switch>
                             <Route exact path='/'>
-                                <Home guests={this.state.guests} addGuest={this.addGuest} />
+                                <Home 
+                                    state={this.state}
+                                    checkName={this.checkName}
+                                    handleChange={this.handleChange}
+                                    handleSubmit={this.handleSubmit}
+                                />
                             </Route>
                             <Route path='/admin'>
-                                <Admin guests={this.state.guests}  />
+                            <Admin state={this.state}/>
                             </Route>
                         </Switch>
                         <Footer />

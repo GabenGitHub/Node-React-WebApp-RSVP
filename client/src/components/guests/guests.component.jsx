@@ -1,24 +1,48 @@
 import React from 'react';
 
-const Guests = ({ guests }) => {
+const Guests = ({ state }) => {
     return(
-    <div className='guests'>
-        <h5>Guests:</h5>
-        <p>Name | Participate | +1 | Name of +1</p>
-        {
-            Guests.length > 0 ?
-                guests.map(guest => {
-                    return (
-                        <div key={guest._id}>
-                            <span>{guest.name}</span> | 
-                            <span>{guest.participate === 'yes' ? 'Yes': 'No'}</span> | 
-                            <span>{guest.plusOne && `+1: ${guest.plusOneName}`}</span>
-                        </div>)
-                }) :
-                <h5>Loading...</h5>
-            
-        }
-    </div>
-)};
+        <div className='guests'>
+            <h5>Invited:</h5>
+            {
+                state.guests.length > 0 ?
+                state.guests.map(guest => {
+                        return (
+                            <div key={guest._id}>
+                                <span>- {guest.name}</span>
+                            </div>)
+                    }) :
+                    <h5>Loading...</h5>
+                
+            }
+            <br/>
+            <h5>Participate:</h5>
+            {
+                state.guests.map(guest => {
+                    if(guest.participate === 'yes') {
+                        return (
+                            <div key={guest._id}>
+                                <span>{guest.name}</span> |
+                                <span>{guest.participate === 'yes' ? 'Yes' : 'No'}</span> |
+                                <span>{guest.plusOne && `+1: ${guest.plusOneName}`}</span>
+                            </div>)
+                    }
+                })
+            }
+            <br/>
+            <h5>Can't participate:</h5>
+            {
+                state.guests.map(guest => {
+                    if(guest.participate === 'no') {
+                        return (
+                            <div key={guest._id}>
+                                <span>{guest.name}</span> |
+                                <span>{guest.participate === 'yes' ? 'Yes' : 'No'}</span> |
+                            </div>)
+                    }
+                })
+            }
+        </div>)
+};
 
 export default Guests;

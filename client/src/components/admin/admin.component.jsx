@@ -4,15 +4,13 @@ import React from 'react';
 import Guests from '../guests/guests.component';
 
 
-class Admin extends React.Component {
-    render() {
-        return (
-            <div className="main admin">
-                <h2 className='about'>Here you can manage the participants</h2>
-                <Guests guests={this.props.guests}/>
-            </div>
-        )
-    };
+const Admin = ({ state }) => {
+    return (
+        <div className="main admin">
+            <h2 className='about'>Here you can manage the participants</h2>
+            <Guests state={state}/>
+        </div>
+    )
 };
 
 export default Admin;

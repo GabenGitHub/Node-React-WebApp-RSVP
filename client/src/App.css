@@ -30,7 +30,7 @@ a {
   margin: 0 10px;
   grid-area: main;
   display: grid;
-  grid-template-columns: 4fr 2fr;
+  grid-template-columns: 4fr 3fr;
   grid-template-rows: 1fr 2fr;
   gap: 10px;
   grid-template-areas:
@@ -42,7 +42,7 @@ a {
   margin: 0 10px;
   grid-area: main;
   display: grid;
-  grid-template-columns: 4fr 2fr;
+  grid-template-columns: 4fr 3fr;
   grid-template-rows: 1fr;
   gap: 10px;
   grid-template-areas:

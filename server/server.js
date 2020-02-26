@@ -8,13 +8,13 @@ const jsonParser = bodyParser.json();
 
 // MongoDB database 
 const dataBase = require("./config/keys").mongoURI;
-// Mongo Schema
 const guests = require("./models/guests");
 
 mongoose.connect(dataBase, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log("MongoDB Connected"))
     .catch((err) => console.log(err));
 
+mongoose.set('useFindAndModify', false);
 
 // Get route
 app.get('/api/listGuests', (req, res) => {
@@ -28,7 +28,7 @@ app.get('/api/listGuests', (req, res) => {
 });
 
 // Post route
-app.post('/api/addGuest', jsonParser, async (req, res) => {
+app.post('/api/checkGuests', jsonParser, async (req, res) => {
     console.log(req.body)
     try {
     const guestName = req.body.name;
@@ -51,6 +51,18 @@ app.post('/api/addGuest', jsonParser, async (req, res) => {
     } catch (error) {
         console.log(error)
         res.status(500).send('Error').end()
+    }
+});
+
+// Edit route
+app.put('/api/editGuest', jsonParser, async (req, res) => {
+    try {
+        await guests.findByIdAndUpdate(req.body._id, req.body);
+        const guestList = await guests.find({});
+        res.status(200).send(guestList).end();
+    } catch (error) {
+        res.status(500).send('Error updating the data.').end();
+        console.log(error);
     }
 });
 

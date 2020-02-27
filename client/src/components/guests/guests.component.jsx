@@ -9,7 +9,19 @@ const Guests = ({ state }) => {
                 state.guests.map(guest => {
                         return (
                             <div key={guest._id}>
-                                <span>- {guest.name}</span>
+                                {
+                                    guest.participate === 'yes' &&
+                                    <span><i className="far fa-check-circle"></i></span>
+                                }
+                                {
+                                    guest.participate === 'no' &&
+                                    <span><i className="far fa-times-circle"></i></span>
+                                }
+                                {
+                                    guest.participate === '' &&
+                                    <span><i className="far fa-envelope"></i></span>
+                                }
+                                <span> {guest.name}</span>
                             </div>)
                     }) :
                     <h5>Loading...</h5>
@@ -22,9 +34,12 @@ const Guests = ({ state }) => {
                     if(guest.participate === 'yes') {
                         return (
                             <div key={guest._id}>
-                                <span>{guest.name}</span> |
-                                <span>{guest.participate === 'yes' ? 'Yes' : 'No'}</span> |
-                                <span>{guest.plusOne && `+1: ${guest.plusOneName}`}</span>
+                                <span><i className="far fa-check-circle"></i></span>
+                                <span> {guest.name} </span>
+                                {
+                                    guest.plusOne &&
+                                    <span><i className="fas fa-user-plus"></i>{` ${guest.plusOneName}`}</span>
+                                }
                             </div>)
                     } else {
                         return (
@@ -40,8 +55,8 @@ const Guests = ({ state }) => {
                     if(guest.participate === 'no') {
                         return (
                             <div key={guest._id}>
-                                <span>{guest.name}</span> |
-                                <span>{guest.participate === 'yes' ? 'Yes' : 'No'}</span> |
+                                <span><i className="far fa-times-circle"></i></span>
+                                <span> {guest.name}</span>
                             </div>)
                     } else {
                         return (

@@ -40,11 +40,10 @@ class App extends React.Component {
         });
         if (await respond.ok) {
             const foundGuest = await respond.json()
-            console.log(foundGuest);
             const { _id, name, participate, plusOne, plusOneName } = foundGuest;
             this.setState({ _id, name, participate, plusOne, plusOneName, isOnTheList: true });
         } else {
-            console.log(await respond.text())
+            this.setState({ isOnTheList: false })
         }
     }
 
@@ -66,6 +65,7 @@ class App extends React.Component {
             const resJson = await respond.json();
             this.setState({ 
                 guests: resJson,
+                // Reset input from
                 _id: '',
                 name: '',
                 participate: '',

@@ -17,14 +17,13 @@ mongoose.connect(dataBase, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.set('useFindAndModify', false);
 
 // Get route
-app.get('/api/listGuests', (req, res) => {
-    guests.find({})
-        .then(allGuests => {
-            res.status(200).send(allGuests).end()
-        })
-        .catch(err => {
-            res.status(500).send('Database error').end();
-        })
+app.get('/api/listGuests', async (req, res) => {
+    try {
+        const guestList = await guests.find({});
+        res.status(200).send(guestList).end();
+    } catch (error) {
+        res.status(500).send('Database error').end();
+    }
 });
 
 // Post route
@@ -35,29 +34,34 @@ app.post('/api/checkGuests', jsonParser, async (req, res) => {
         const guestList = await guests.find({});
         let found;
         guestList.find(guest => {
-            try {
-                if (guest["name"].toLowerCase() === guestName.toLowerCase()) {
-                    console.log(guest);
-                    found = true;
-                    res.status(200).send(guest).end();
-                }
-            } catch (error) {
-                console.log(error);
-                res.status(500).send('Internal error').end();
+            if (guest["name"].toLowerCase() === guestName.toLowerCase()) {
+                console.log(guest);
+                found = true;
+                res.status(200).send(guest).end();
             }
         });
         !found &&
             res.status(404).send('Not found on the guest list!').end();
     } catch (error) {
         console.log(error)
-        res.status(500).send('Error').end()
+        res.status(500).send('Internal error').end()
     }
 });
 
+const checkPlusOne = (requestObject) => {
+    if(requestObject.participate === 'no' || requestObject.plusOne === false) {
+        console.log('triggered')
+        requestObject.plusOne = false;
+        requestObject.plusOneName = '';
+    }
+    return requestObject;
+};
+
 // Edit route
 app.put('/api/editGuest', jsonParser, async (req, res) => {
+    console.log(req.body);
     try {
-        await guests.findByIdAndUpdate(req.body._id, req.body);
+        await guests.findByIdAndUpdate(req.body._id, checkPlusOne(req.body));
         const guestList = await guests.find({});
         res.status(200).send(guestList).end();
     } catch (error) {

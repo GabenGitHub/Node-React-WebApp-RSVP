@@ -47,7 +47,7 @@ app.post('/api/checkGuests', jsonParser, async (req, res) => {
             }
         });
         !found &&
-            res.status(404).send('Not found').end();
+            res.status(404).send('Not found on the guest list!').end();
     } catch (error) {
         console.log(error)
         res.status(500).send('Error').end()

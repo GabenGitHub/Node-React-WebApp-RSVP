@@ -15,41 +15,55 @@ const FormInput = ( {state, checkName, handleSubmit, handleChange} ) => {
                         required
                     />
                 </div>
-                <div>
-                    <label>Are you participate? </label>
-                    <select 
-                        name='participate' 
-                        onChange={handleChange} 
-                        value={state.participate}
-                        required
-                    >
-                        <option disabled hidden value=''> -- select an option -- </option>
-                        <option value='yes'>Coming</option>
-                        <option value='no'>Not coming</option>
-                    </select>
-                </div>
-                <div>
-                    <input 
-                    type='checkbox'
-                    name='plusOne'
-                    onChange={handleChange}
-                    checked={state.plusOne}
-                    />
-                    <label> +1 guest</label>
-                </div>
-                <div>
-                    <input
-                        type='text'
-                        name='plusOneName'
-                        placeholder='name of +1'
-                        onChange={handleChange}
-                        value={state.plusOneName}
-                        required
-                    />
-                </div>
+                {
+                    state.isOnTheList &&
+                    <div>
+                        <label>Are you participate? </label>
+                        <select 
+                            name='participate' 
+                            onChange={handleChange} 
+                            value={state.participate}
+                            required
+                        >
+                            <option disabled hidden value=''> -- select an option -- </option>
+                            <option value='yes'>Coming</option>
+                            <option value='no'>Not coming</option>
+                        </select>
+                    </div>
+                }
+                {
+                    state.participate === 'yes' &&
+                    <div>
+                        <div>
+                            <input 
+                            type='checkbox'
+                            name='plusOne'
+                            onChange={handleChange}
+                            checked={state.plusOne}
+                            />
+                            <label> +1 guest</label>
+                        </div>
+                        {
+                            state.plusOne === true &&
+                            <div>
+                                <input
+                                    type='text'
+                                    name='plusOneName'
+                                    placeholder='name of +1'
+                                    onChange={handleChange}
+                                    value={state.plusOneName}
+                                    required
+                                    />
+                            </div>
+                        }
+                    </div>
+                }
+                {
+                state.isOnTheList &&
                 <div>
                     <button>Submit</button>
                 </div>
+                }
             </form>
         </div>
     )

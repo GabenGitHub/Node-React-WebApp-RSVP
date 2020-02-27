@@ -26,6 +26,10 @@ const Guests = ({ state }) => {
                                 <span>{guest.participate === 'yes' ? 'Yes' : 'No'}</span> |
                                 <span>{guest.plusOne && `+1: ${guest.plusOneName}`}</span>
                             </div>)
+                    } else {
+                        return (
+                            <div key={guest._id}></div>
+                        )
                     }
                 })
             }
@@ -39,6 +43,10 @@ const Guests = ({ state }) => {
                                 <span>{guest.name}</span> |
                                 <span>{guest.participate === 'yes' ? 'Yes' : 'No'}</span> |
                             </div>)
+                    } else {
+                        return (
+                            <div key={guest._id}></div>
+                        )
                     }
                 })
             }

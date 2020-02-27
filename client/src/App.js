@@ -15,6 +15,7 @@ class App extends React.Component {
         participate: '',
         plusOne: false,
         plusOneName: '',
+        isOnTheList: false
     };
 
     async componentDidMount() {
@@ -41,7 +42,7 @@ class App extends React.Component {
             const foundGuest = await respond.json()
             console.log(foundGuest);
             const { _id, name, participate, plusOne, plusOneName } = foundGuest;
-            this.setState({ _id, name, participate, plusOne, plusOneName });
+            this.setState({ _id, name, participate, plusOne, plusOneName, isOnTheList: true });
         } else {
             console.log(await respond.text())
         }
@@ -70,6 +71,7 @@ class App extends React.Component {
                 participate: '',
                 plusOne: false,
                 plusOneName: '',
+                isOnTheList: false
             });
             } else {
                 console.log(await respond.text())

@@ -31,7 +31,7 @@ class App extends React.Component {
     checkName = async (event) => {
         const { name, value } = event.target;
         this.setState({ [name]: value });
-        const respond = await fetch('/api/checkGuests', {
+        const respond = await fetch('/api/checkGuest', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

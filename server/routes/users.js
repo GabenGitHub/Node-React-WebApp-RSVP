@@ -8,7 +8,6 @@ const jsonParser = bodyParser.json();
 
 const checkPlusOne = (requestObject) => {
     if (requestObject.participate === 'no' || requestObject.plusOne === false) {
-        console.log('triggered')
         requestObject.plusOne = false;
         requestObject.plusOneName = '';
     }
@@ -24,15 +23,13 @@ router.get('/api/listGuests', async (req, res) => {
     }
 });
 
-router.post('/api/checkGuests', jsonParser, async (req, res) => {
-    console.log(req.body)
+router.post('/api/checkGuest', jsonParser, async (req, res) => {
     try {
         const guestName = req.body.name;
         const guestList = await guests.find({});
         let found;
         guestList.find(guest => {
             if (guest["name"].toLowerCase() === guestName.toLowerCase()) {
-                console.log(guest);
                 found = true;
                 res.status(200).send(guest).end();
             }

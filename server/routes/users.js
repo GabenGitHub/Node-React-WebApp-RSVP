@@ -3,16 +3,11 @@ const router = express.Router();
 const guests = require("../models/guests");
 const bodyParser = require('body-parser');
 
+const { checkPlusOne } = require('../controllers/users.controller');
+
 router.use(bodyParser.urlencoded({ extended: true }));
 const jsonParser = bodyParser.json();
 
-const checkPlusOne = (requestObject) => {
-    if (requestObject.participate === 'no' || requestObject.plusOne === false) {
-        requestObject.plusOne = false;
-        requestObject.plusOneName = '';
-    }
-    return requestObject;
-};
 
 router.get('/api/listGuests', async (req, res) => {
     try {

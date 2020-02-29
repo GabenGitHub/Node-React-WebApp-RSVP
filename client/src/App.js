@@ -92,21 +92,21 @@ class App extends React.Component {
         return (
             <div className='grid-container'>
                 <BrowserRouter>
-                        <Navbar />
-                        <Switch>
-                            <Route exact path='/'>
-                                <Home 
-                                    state={this.state}
-                                    checkName={this.checkName}
-                                    handleChange={this.handleChange}
-                                    handleSubmit={this.handleSubmit}
-                                />
-                            </Route>
-                            <Route path='/admin'>
-                            <Admin state={this.state}/>
-                            </Route>
-                        </Switch>
-                        <Footer />
+                    <Navbar />
+                    <Switch>
+                        <Route exact path='/'>
+                            <Home 
+                                state={this.state}
+                                checkName={this.checkName}
+                                handleChange={this.handleChange}
+                                handleSubmit={this.handleSubmit}
+                            />
+                        </Route>
+                        <Route path='/admin'>
+                        <Admin state={this.state}/>
+                        </Route>
+                    </Switch>
+                    <Footer />
                 </BrowserRouter>
             </div>
         );

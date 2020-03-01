@@ -1,4 +1,4 @@
-import { FETCH_GUESTS, SUBMIT_RESPONSE, ADD_GUEST } from './types';
+import { FETCH_GUESTS, SUBMIT_RESPONSE, ADD_GUEST, REMOVE_GUEST } from './types';
 
 export const fetchGuestList = () => async dispatch => {
     try {
@@ -46,6 +46,27 @@ export const addGuest = (guestData) => async dispatch => {
             dispatch({
                 type: ADD_GUEST,
                 payload: guestAdded
+            });
+        } else {
+            console.log(await respond.text());
+        }
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+export const removeGuest = (guestData) => async dispatch => {
+    try {
+        const respond = await fetch('/api/removeGuest', {
+            method: 'delete',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(guestData)
+        });
+        if (await respond.ok) {
+            const guestRemoved = await respond.json();
+            dispatch({
+                type: REMOVE_GUEST,
+                payload: guestRemoved
             });
         } else {
             console.log(await respond.text());

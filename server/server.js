@@ -9,6 +9,7 @@ dotenv.config({ path: './config/config.env'});
 
 // Importing routes
 const users = require('./routes/users');
+const admin = require('./routes/admin');
 
 // MongoDB database 
 const dataBase = require("./config/keys").mongoURI;
@@ -20,6 +21,7 @@ mongoose.connect(dataBase, { useNewUrlParser: true, useUnifiedTopology: true })
 
 // Routes
 app.use('/', users);
+app.use('/', admin);
 
 // Server
 const PORT = process.env.PORT || 5000;

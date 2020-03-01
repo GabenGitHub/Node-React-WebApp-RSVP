@@ -6,13 +6,12 @@ import FormAdmin from '../form-admin/form-admin.component';
 const Admin = () => {
     return (
         <div className="main admin">
-            <h2 className='about'>Here you can manage the participants</h2>
-            <FormAdmin
-                // state={state}
-                // checkName={checkName}
-                // handleSubmit={handleSubmit}
-                // handleChange={handleChange}
-            />
+            <div className='about'>
+                <h2>Admin form</h2>
+                <p>Here you can manage the participants</p>
+            </div>
+            
+            <FormAdmin />
             <Guests />
         </div>
     )

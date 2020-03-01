@@ -48,21 +48,4 @@ router.put('/api/editGuest', jsonParser, async (req, res) => {
     }
 });
 
-router.post('/api/addGuest', jsonParser, async (req, res) => {
-    try {
-        const addGuest = {
-            "name": req.body.name,
-            "participate": '',
-            "plusOne": false,
-            "plusOneName": '',
-        }
-        const addedGuest = await guests.create(addGuest);
-        addedGuest.save();
-        res.status(200).send(addedGuest).end();
-    } catch (error) {
-        res.status(500).send('Error creating data.').end();
-        console.log(error);
-    }
-});
-
 module.exports = router;

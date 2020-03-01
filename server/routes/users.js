@@ -38,13 +38,29 @@ router.post('/api/checkGuest', jsonParser, async (req, res) => {
 });
 
 router.put('/api/editGuest', jsonParser, async (req, res) => {
-    console.log(req.body);
     try {
         await guests.findByIdAndUpdate(req.body._id, checkPlusOne(req.body));
         const guestList = await guests.find({});
         res.status(200).send(guestList).end();
     } catch (error) {
         res.status(500).send('Error updating the data.').end();
+        console.log(error);
+    }
+});
+
+router.post('/api/addGuest', jsonParser, async (req, res) => {
+    try {
+        const addGuest = {
+            "name": req.body.name,
+            "participate": '',
+            "plusOne": false,
+            "plusOneName": '',
+        }
+        const addedGuest = await guests.create(addGuest);
+        addedGuest.save();
+        res.status(200).send(addedGuest).end();
+    } catch (error) {
+        res.status(500).send('Error creating data.').end();
         console.log(error);
     }
 });

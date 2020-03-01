@@ -31,11 +31,11 @@ a {
   grid-area: main;
   display: grid;
   grid-template-columns: 4fr 2fr;
-  grid-template-rows: 1fr 2fr;
+  grid-template-rows: 1fr 3fr;
   gap: 10px;
   grid-template-areas:
   'about guests'
-  'form guests'
+  'user-form guests'
 }
 
 .admin {
@@ -43,18 +43,24 @@ a {
   grid-area: main;
   display: grid;
   grid-template-columns: 4fr 2fr;
-  grid-template-rows: 1fr;
+  grid-template-rows: 1fr 3fr;
   gap: 10px;
   grid-template-areas:
   'about guests'
+  'admin-form guests'
 }
 
 .about {
   padding: 2rem;
   border: 1px solid grey;
 }
-.form {
-  grid-area: form;
+.user-form {
+  grid-area: user-form;
+  border: 1px solid grey;
+  padding: 2rem;
+}
+.admin-form {
+  grid-area: admin-form;
   border: 1px solid grey;
   padding: 2rem;
 }

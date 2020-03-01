@@ -5,17 +5,12 @@ import About from '../about/about.component';
 import Guests from '../guests/guests.component';
 import FormInput from '../form-input/form-input.component';
 
-const Home = ({ state, checkName, handleSubmit, handleChange }) => {
+const Home = () => {
     return(
     <div className="main">
             <About />
-            <FormInput 
-                state={state}
-                checkName={checkName}
-                handleSubmit={handleSubmit}
-                handleChange={handleChange}
-            />
-            <Guests state={state} />
+            <FormInput />
+            <Guests />
     </div>
 )};
 

@@ -1,14 +1,19 @@
 import React from 'react';
-// import './admin.styles.css';
 
 import Guests from '../guests/guests.component';
+import FormAdmin from '../form-admin/form-admin.component';
 
-
-const Admin = ({ state }) => {
+const Admin = () => {
     return (
         <div className="main admin">
             <h2 className='about'>Here you can manage the participants</h2>
-            <Guests state={state}/>
+            <FormAdmin
+                // state={state}
+                // checkName={checkName}
+                // handleSubmit={handleSubmit}
+                // handleChange={handleChange}
+            />
+            <Guests />
         </div>
     )
 };

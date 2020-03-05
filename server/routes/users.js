@@ -30,7 +30,7 @@ router.post('/api/checkGuest', jsonParser, async (req, res) => {
             }
         });
         !found &&
-            res.status(404).send('Not found on the guest list!').end();
+            res.status(404).send('Guest not found!').end();
     } catch (error) {
         console.log(error)
         res.status(500).send('Internal error').end()

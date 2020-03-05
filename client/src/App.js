@@ -13,14 +13,14 @@ class App extends React.Component {
             <div className='grid-container'>
                 <BrowserRouter>
                     <Navbar />
-                        <Switch>
-                            <Route exact path='/'>
-                                <Home />
-                            </Route>
-                            <Route path='/admin'>
-                                <Admin />
-                            </Route>
-                        </Switch>
+                    <Switch>
+                        <Route exact path='/'>
+                            <Home />
+                        </Route>
+                        <Route path='/admin'>
+                            <Admin />
+                        </Route>
+                    </Switch>
                     <Footer />
                 </BrowserRouter>
             </div>

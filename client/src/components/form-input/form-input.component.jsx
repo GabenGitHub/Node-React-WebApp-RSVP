@@ -9,7 +9,8 @@ class FormInput extends React.Component {
         participate: '',
         plusOne: false,
         plusOneName: '',
-        isOnTheList: false
+        isOnTheList: false,
+        message: ''
     };
 
     handleChange = (event) => {
@@ -30,26 +31,28 @@ class FormInput extends React.Component {
             })
         });
         if (await respond.ok) {
-            const foundGuest = await respond.json()
+            const foundGuest = await respond.json();
             const { _id, name, participate, plusOne, plusOneName } = foundGuest;
-            this.setState({ _id, name, participate, plusOne, plusOneName, isOnTheList: true });
+            this.setState({ 
+                _id, 
+                name, 
+                participate, 
+                plusOne, 
+                plusOneName, 
+                isOnTheList: true,
+                message: 'Found'
+            });
         } else {
-            this.setState({ isOnTheList: false })
+            this.setState({ 
+                isOnTheList: false,
+                message: await respond.text() 
+            });
         }
     };
 
     handleSubmit = (event) => {
         event.preventDefault();
-        
-        const guestData = {
-            "_id": this.state._id,
-            "name": this.state.name,
-            "participate": this.state.participate,
-            "plusOne": this.state.plusOne,
-            "plusOneName": this.state.plusOneName,
-        }
-
-        this.props.submitResponse(guestData);
+        this.props.submitResponse(this.state);
         this.setState({
                 // Reset input from
                 _id: '',
@@ -57,7 +60,8 @@ class FormInput extends React.Component {
                 participate: '',
                 plusOne: false,
                 plusOneName: '',
-                isOnTheList: false
+                isOnTheList: false,
+                message: ''
             });
     }
 
@@ -75,6 +79,7 @@ class FormInput extends React.Component {
                             value={this.state.name}
                             required
                         />
+                        <span> {this.state.message}</span>
                     </div>
                     {
                         this.state.isOnTheList &&
@@ -102,7 +107,7 @@ class FormInput extends React.Component {
                                 onChange={this.handleChange}
                                 checked={this.state.plusOne}
                                 />
-                                <label> +1 guest</label>
+                                <label> Plus one guest</label>
                             </div>
                             {
                                 this.state.plusOne === true &&
@@ -110,7 +115,7 @@ class FormInput extends React.Component {
                                     <input
                                         type='text'
                                         name='plusOneName'
-                                        placeholder='name of +1'
+                                        placeholder='Name of plus one'
                                         onChange={this.handleChange}
                                         value={this.state.plusOneName}
                                         required

@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addGuest, removeGuest } from '../../redux/actions/guestList.actions';
+import { addGuest } from '../../redux/actions/guestList.actions';
 
-class FormAdmin extends React.Component {
+class FormAdminAdd extends React.Component {
     state = {
         nameAdd: '',
-        nameRemove: '',
     }
 
     checkName = async (event) => {
@@ -43,30 +42,17 @@ class FormAdmin extends React.Component {
             nameAdd: '',
         });
     };
-    handleSubmitRemove = (event) => {
-        event.preventDefault();
-
-        const guestData = {
-            "name": this.state.nameRemove,
-        }
-
-        this.props.removeGuest(guestData);
-        this.setState({
-            // Reset input from
-            nameRemove: '',
-        });
-    };
 
     render() {
-        return(
-            <div className='admin-form'>
+        return (
+            <div className='admin-form-add'>
                 <form onSubmit={this.handleSubmitAdd}>
                     <div>
                         <label>Invite guest </label>
                         <input
                             type="text"
-                            name='nameAdd'
-                            placeholder='Guest name'
+                            name="nameAdd"
+                            placeholder="Guest name"
                             onChange={this.handleChange}
                             value={this.state.nameAdd}
                             required
@@ -74,26 +60,9 @@ class FormAdmin extends React.Component {
                     </div>
                     <button>Invite</button>
                 </form>
-                <br/>
-                <hr/>
-                <br/>
-                <form onSubmit={this.handleSubmitRemove}>
-                    <div>
-                        <label>Remove guest </label>
-                        <input
-                            type="text"
-                            name='nameRemove'
-                            placeholder='Guest name'
-                            onChange={this.checkName}
-                            value={this.state.nameRemove}
-                            required
-                        />
-                    </div>
-                    <button>Remove</button>
-                </form>
             </div>
         );
     };
 };
 
-export default connect(null, { addGuest, removeGuest })(FormAdmin);
+export default connect(null, { addGuest })(FormAdminAdd);

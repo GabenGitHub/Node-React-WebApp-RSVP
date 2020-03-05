@@ -6,12 +6,13 @@ import Guests from '../guests/guests.component';
 import FormInput from '../form-input/form-input.component';
 
 const Home = () => {
-    return(
-    <div className="main">
+    return (
+        <div className="main">
             <About />
             <FormInput />
             <Guests />
-    </div>
-)};
+        </div>
+    )
+};
 
 export default Home;

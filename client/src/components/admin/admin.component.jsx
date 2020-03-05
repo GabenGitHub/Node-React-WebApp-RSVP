@@ -1,7 +1,8 @@
 import React from 'react';
 
 import Guests from '../guests/guests.component';
-import FormAdmin from '../form-admin/form-admin.component';
+import FormAdminAdd from '../form-admin/form-admin-add.component';
+import FormAdminRemove from '../form-admin/form-admin-remove.component';
 
 const Admin = () => {
     return (
@@ -11,7 +12,8 @@ const Admin = () => {
                 <p>Here you can manage the participants</p>
             </div>
             
-            <FormAdmin />
+            <FormAdminAdd />
+            <FormAdminRemove />
             <Guests />
         </div>
     )

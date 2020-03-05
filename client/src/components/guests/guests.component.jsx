@@ -59,25 +59,33 @@ class Guests extends React.Component {
             }
             <br/>
             <h5>Participate ({guestCounter.coming}):</h5>
-            {
-                guests.map(guest => {
-                    if(guest.participate === isComing.yes) {
-                        return (
-                            <div key={guest._id}>
-                                <span><i className="far fa-check-circle"></i></span>
-                                <span> {guest.name} </span>
-                                {
-                                    guest.plusOne &&
-                                    <span><i className="fas fa-user-plus"></i>{` ${guest.plusOneName}`}</span>
-                                }
-                            </div>)
-                    } else {
-                        return (
-                            <div key={guest._id}></div>
-                        )
+            <table>
+                <tbody>
+                    {
+                        guests.map(guest => {
+                            if(guest.participate === isComing.yes) {
+                                return (
+                                    <tr key={guest._id}>
+                                        <td>
+                                            <span><i className="far fa-check-circle"></i> {guest.name} </span>
+                                        </td>
+                                        <td>
+                                            {
+                                                guest.plusOne &&
+                                                <span><i className="fas fa-user-plus"></i>{` ${guest.plusOneName}`}</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                )
+                            } else {
+                                return (
+                                    <tr key={ guest._id }></tr>
+                                )
+                            }
+                        })
                     }
-                })
-            }
+                </tbody>
+            </table>
             <br/>
             <h5>Can't participate ({guestCounter.notComing}):</h5>
             {

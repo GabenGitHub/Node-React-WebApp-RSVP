@@ -15,11 +15,18 @@ class Guests extends React.Component {
             notComing: 0
         };
 
-        // Enum
+        // Enums
         const isComing = Object.freeze({
             yes: "yes",
             no: "no",
             pending: ""
+        });
+
+        const iconClass = Object.freeze({
+            yes: "far fa-check-circle",
+            no: "far fa-times-circle",
+            pending: "far fa-envelope",
+            plusOne: "fas fa-user-plus"
         });
 
         guests.map(guest => {
@@ -41,15 +48,15 @@ class Guests extends React.Component {
                         <div key={guest._id}>
                             {
                                 guest.participate === isComing.yes &&
-                                <span><i className="far fa-check-circle"></i></span>
+                                <span><i className={iconClass.yes}></i></span>
                             }
                             {
                                 guest.participate === isComing.no &&
-                                <span><i className="far fa-times-circle"></i></span>
+                                <span><i className={iconClass.no}></i></span>
                             }
                             {
                                 guest.participate === isComing.pending &&
-                                <span><i className="far fa-envelope"></i></span>
+                                <span><i className={iconClass.pending}></i></span>
                             }
                             <span> {guest.name}</span>
                         </div>
@@ -67,12 +74,12 @@ class Guests extends React.Component {
                                 return (
                                     <tr key={guest._id}>
                                         <td>
-                                            <span><i className="far fa-check-circle"></i> {guest.name} </span>
+                                            <span><i className={iconClass.yes}></i> {guest.name} </span>
                                         </td>
                                         <td>
                                             {
                                                 guest.plusOne &&
-                                                <span><i className="fas fa-user-plus"></i>{` ${guest.plusOneName}`}</span>
+                                                <span><i className={iconClass.plusOne}></i>{` ${guest.plusOneName}`}</span>
                                             }
                                         </td>
                                     </tr>
@@ -93,7 +100,7 @@ class Guests extends React.Component {
                     if(guest.participate === isComing.no) {
                         return (
                             <div key={guest._id}>
-                                <span><i className="far fa-times-circle"></i></span>
+                                <span><i className={iconClass.no}></i></span>
                                 <span> {guest.name}</span>
                             </div>)
                     } else {
@@ -110,7 +117,7 @@ class Guests extends React.Component {
                     if(guest.participate === isComing.pending) {
                         return (
                             <div key={guest._id}>
-                                <span><i className="far fa-envelope"></i></span>
+                                <span><i className={iconClass.pending}></i></span>
                                 <span> {guest.name}</span>
                             </div>)
                     } else {

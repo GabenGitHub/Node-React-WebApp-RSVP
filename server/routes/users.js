@@ -9,7 +9,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 const jsonParser = bodyParser.json();
 
 
-router.get('/api/listGuests', async (req, res) => {
+router.get('/api/guests', async (req, res) => {
     try {
         const guestList = await guests.find({});
         res.status(200).send(guestList).end();
@@ -18,7 +18,7 @@ router.get('/api/listGuests', async (req, res) => {
     }
 });
 
-router.post('/api/checkGuest', jsonParser, async (req, res) => {
+router.post('/api/guests/check', jsonParser, async (req, res) => {
     try {
         const guestName = req.body.name;
         const guestList = await guests.find({});
@@ -37,7 +37,7 @@ router.post('/api/checkGuest', jsonParser, async (req, res) => {
     }
 });
 
-router.put('/api/editGuest', jsonParser, async (req, res) => {
+router.put('/api/guests/edit', jsonParser, async (req, res) => {
     try {
         await guests.findByIdAndUpdate(req.body._id, checkPlusOne(req.body));
         const guestList = await guests.find({});

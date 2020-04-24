@@ -6,13 +6,28 @@ const bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: true }));
 const jsonParser = bodyParser.json();
 
-router.post('/api/addGuest', jsonParser, async (req, res) => {
+router.post('/api/guests/add', jsonParser, async (req, res) => {
     try {
+        // avoiding duplicates
+        const guestList = await guests.find({});
+        let found = false;
+        guestList.find(guest => {
+            if (guest["name"].toLowerCase() === req.body.name.toLowerCase()) {
+                found = true;
+            }
+        });
+        if(found) {
+            return res.status(400).send("Guest already exist.").end();
+        }
+        if(req.body.name.trim().length === 0) {
+            return res.status(400).send("Cannot be empty or white space.").end();
+        }
+
         const addGuest = {
-            "name": req.body.name,
+            "name": req.body.name.trim(),
             "participate": '',
             "plusOne": false,
-            "plusOneName": '',
+            "plusOneName": ''
         }
         const addedGuest = await guests.create(addGuest);
         addedGuest.save();
@@ -23,7 +38,7 @@ router.post('/api/addGuest', jsonParser, async (req, res) => {
     }
 });
 
-router.delete('/api/removeGuest', jsonParser, async (req, res) => {
+router.delete('/api/guests/remove', jsonParser, async (req, res) => {
     try {
         const guestName = req.body.name;
         const guestList = await guests.find({});
